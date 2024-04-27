@@ -1,0 +1,16 @@
+The system should allow all users to be able to sign in.
+The system should allow system manager to register restaurant who send request to join network.
+The system should allow restaurant to create their own menu by adding the dishes.
+The system should allow user to make reservation by call-in or filling online form. 
+The system should allow to send request to the restaurant regarding users attempt to make reservation.
+The system should allow restaurant to confirm or deny the users reservation.
+The system should allow restaurant to send a confirmation email to user regarding their reservation.
+The system should allow restaurant to see list of reservation list including user detail, and reservtion detail.
+The system should allow to store each users reservation of their restaurant.
+The system should allow user to see their own reservation.
+The system should allow user to cancel or change the reservation.
+The system should allow to limit the reservations for 2 or 3 table a night, if the number of people who is coming, is 6 or more.
+The system should allow user to order food from the restaurant by call-in or filling online form. 
+The system should allow restaurant to get a notification regarding users pickup order.
+The system should allow to send confirmation mail to the user, including order detail, payment information and wait time. 
+The system should allow restaurant to change status of order when the user picked up the order.
