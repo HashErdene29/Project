@@ -33,7 +33,7 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public List<ReservationResponse> getAllReservationsByCustomer(int customerId){
-        List<Reservation> list = reservationRepository.findAllByCustomerId(customerId);
+        List<Reservation> list = reservationRepository.findAllByCustomer_CustomerId(customerId);
         return list.stream()
                 .map(a -> new ReservationResponse(
                         a.getReserveId(),
@@ -91,38 +91,50 @@ public class ReservationServiceImpl implements ReservationService {
     public ReservationResponse addNewReservation(int customerId, int resId, ReservationRequest req) throws CustomerNotFoundException {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new CustomerNotFoundException(String.format("Error: Customer with Id, %d, is not found", customerId)));
-
+        List<Reservation> reservations = reservationRepository.findAllByRestaurant_ResId(resId);
+        int totalNumberOfPeople = 0;
+        for(Reservation reservation : reservations){
+            if(LocalDate.parse(req.reserveDate()) == reservation.getReserveDate()){
+                totalNumberOfPeople += reservation.getNumberOfPeople();
+            }
+        }
+        System.out.println("TOTALLL - " + totalNumberOfPeople);
         RestaurantManager restaurant = resManagerRepository.findById(resId).get();
-        Reservation reservation = new Reservation(
-                req.numberOfPeople(),
-                LocalDate.parse(req.reserveDate()),
-                LocalTime.parse(req.reserveTime()),
-                customer,
-                restaurant
-        );
-        Reservation res = reservationRepository.save(reservation);
-        return new ReservationResponse(
-                res.getReserveId(),
-                res.getNumberOfPeople(),
-                res.getReserveDate(),
-                res.getReserveTime(),
-                res.getStatus(),
-                (new CustomerResponse(
-                        res.getCustomer().getCustomerId(),
-                        res.getCustomer().getFirstname(),
-                        res.getCustomer().getLastname(),
-                        res.getCustomer().getEmail(),
-                        res.getCustomer().getPhoneHumber()
-                )),
-                (new RestaurantResponse(
-                        res.getRestaurant().getResId(),
-                        res.getRestaurant().getResName(),
-                        res.getRestaurant().getEmail(),
-                        res.getRestaurant().getPhoneNumber(),
-                        res.getRestaurant().getAddress(),
-                        res.getRestaurant().getCapacity()
-                ))
-        );
+        if(totalNumberOfPeople >= restaurant.getCapacity()){
+            Reservation reservation = new Reservation(
+                    req.numberOfPeople(),
+                    LocalDate.parse(req.reserveDate()),
+                    LocalTime.parse(req.reserveTime()),
+                    customer,
+                    restaurant
+            );
+            Reservation res = reservationRepository.save(reservation);
+            return new ReservationResponse(
+                    res.getReserveId(),
+                    res.getNumberOfPeople(),
+                    res.getReserveDate(),
+                    res.getReserveTime(),
+                    res.getStatus(),
+                    (new CustomerResponse(
+                            res.getCustomer().getCustomerId(),
+                            res.getCustomer().getFirstname(),
+                            res.getCustomer().getLastname(),
+                            res.getCustomer().getEmail(),
+                            res.getCustomer().getPhoneHumber()
+                    )),
+                    (new RestaurantResponse(
+                            res.getRestaurant().getResId(),
+                            res.getRestaurant().getResName(),
+                            res.getRestaurant().getEmail(),
+                            res.getRestaurant().getPhoneNumber(),
+                            res.getRestaurant().getAddress(),
+                            res.getRestaurant().getCapacity()
+                    ))
+            );
+        } else {
+            throw new IllegalStateException("Cannot make another reservation. Restaurant capacity is may be full.");
+        }
+
     }
 
     @Override

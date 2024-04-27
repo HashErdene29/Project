@@ -91,8 +91,11 @@ public class DataLoad implements CommandLineRunner {
         Dish dish2 = new Dish("Traditional pasta", 11, "Pasta noodles, marinara sauce", menu1);
         dishRepository.saveAll(Arrays.asList(dish1, dish2));
 
-        Reservation reservation1 = new Reservation(5, LocalDate.parse("2024-04-25"), LocalTime.parse("18:00"), customer1, restaurant1);
-        reservationRepository.saveAll(Arrays.asList(reservation1));
+        Reservation reservation1 = new Reservation(5, LocalDate.parse("2024-04-27"), LocalTime.parse("18:00"), customer1, restaurant1);
+        Reservation reservation2 = new Reservation(10, LocalDate.parse("2024-04-27"), LocalTime.parse("18:00"), customer1, restaurant1);
+        Reservation reservation3 = new Reservation(15, LocalDate.parse("2024-04-27"), LocalTime.parse("18:00"), customer1, restaurant1);
+        Reservation reservation4 = new Reservation(20, LocalDate.parse("2024-04-27"), LocalTime.parse("18:00"), customer1, restaurant1);
+        reservationRepository.saveAll(Arrays.asList(reservation1, reservation2, reservation3, reservation4));
 
         Order order1 = new Order(LocalDate.parse("2024-04-25"), LocalTime.parse("16:15"), 22, customer2);
         order1.setDishes(Arrays.asList(dish1, dish1));
