@@ -66,4 +66,12 @@ public class ProjectWebExceptionHandler {
         errors.put("Error Display text", "Invalid username or password");
         return errors;
     }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(IllegalStateException.class)
+    public Map<String, String> handleIllegalStateException(IllegalStateException ex) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("Error message", ex.getMessage());
+        return errors;
+    }
 }

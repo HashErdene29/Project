@@ -35,11 +35,11 @@ public class ProjectWebSecurityConfig implements WebMvcConfigurer {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         auth -> {
-                            auth.requestMatchers("/project/public/**").permitAll()
-                                    .requestMatchers("/project/public/reservation/**").authenticated()
-                                    .requestMatchers("/project/public/order/**").authenticated()
-                                    .requestMatchers("/restaurants/**").permitAll()
-                                    .requestMatchers("/restaurants/menus/**").permitAll();
+                            auth
+                                    .requestMatchers("/project/reservation/**").authenticated()
+                                    .requestMatchers("/project/order/**").authenticated()
+                                    .requestMatchers("/project/public/**").permitAll()
+                                    .requestMatchers("/restaurants/**").permitAll();
                         }
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

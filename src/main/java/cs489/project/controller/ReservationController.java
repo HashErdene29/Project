@@ -19,10 +19,10 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
-//    @GetMapping("/list/{customerId}")
-//    public ResponseEntity<List<ReservationResponse>> getAllReservations(@PathVariable int customerId) {
-//        return ResponseEntity.ok(reservationService.getAllReservationsByCustomer(customerId));
-//    }
+    @GetMapping("/list/{customerId}")
+    public ResponseEntity<List<ReservationResponse>> getAllReservations(@PathVariable int customerId) {
+        return ResponseEntity.ok(reservationService.getAllReservationsByCustomer(customerId));
+    }
 
     @GetMapping("/list/{resId}")
     public ResponseEntity<List<ReservationResponse>> getAllReservationsByRestaurant(@PathVariable int resId) {

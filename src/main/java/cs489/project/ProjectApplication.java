@@ -16,38 +16,10 @@ import java.util.List;
 
 @SpringBootApplication
 public class ProjectApplication {
-//    private UserRepository userRepo;
-//    private RoleRepository roleRepo;
-//    private PasswordEncoder passwordEncoder;
-//    public ProjectApplication(UserRepository userRepo, RoleRepository roleRepo, PasswordEncoder passwordEncoder) {
-//        this.userRepo = userRepo;
-//        this.roleRepo = roleRepo;
-//        this.passwordEncoder = passwordEncoder;
-//    }
 
     public static void main(String[] args) {
         SpringApplication.run(ProjectApplication.class, args);
     }
-//    @PostConstruct
-//    public void init() {
-//        var adminUser = userRepo.findByUsername("admin");
-//        if(adminUser.isEmpty()) {
-//            List<Role> adminRoles = new ArrayList<>();
-//            var adminRole = roleRepo.findByName("ROLE_ADMIN");
-//            if(adminRole.isEmpty()) {
-//                var newAdminRole = new Role("ROLE_ADMIN");
-//                adminRoles.add(newAdminRole);
-//            } else {
-//                adminRoles.add(adminRole.get());
-//            }
-//            User newAdminUser = new User(null, "Admin", "Admin", "Admin", "admin",
-//                    passwordEncoder.encode("test1234"), "admin@fairfieldlibrary.com",
-//                    true,true, true, true);
-//            newAdminUser.setRoles(adminRoles);
-//            userRepo.save(newAdminUser);
-//
-//        }
-//    }
 
     @Bean
     CommandLineRunner commandLineRunner() {
