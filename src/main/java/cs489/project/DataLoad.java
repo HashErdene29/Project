@@ -7,12 +7,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Arrays;
 
-@SpringBootApplication
+@Component
 public class DataLoad implements CommandLineRunner {
     private CustomerRepository customerRepository;
     private ResManagerRepository resManagerRepository;
@@ -40,9 +41,6 @@ public class DataLoad implements CommandLineRunner {
         this.userRepository = userRepository;
     }
 
-    public static void main(String[] args) {
-        SpringApplication.run(DataLoad.class, args);
-    }
 
     @Override
     @Transactional
